@@ -40,9 +40,10 @@ export default function EmployeeInfo() {
             {employeeData && employeeData.departmentHistory.length > 0 ? (
                 <ul className="list-disc list-inside mb-4">
                     {employeeData.departmentHistory.map((dept, index) => (
-                        <li key={index}>
-                            Dept No: {dept.dept_no}, From: {dept.from_date}, To: {dept.to_date}
-                        </li>
+                        <div key={index}>
+                            <p>{dept.dept_name}</p>
+                            Dept No: {dept.dept_no}, From: {dept.from_date} - {dept.to_date === '9999-01-01' ? 'Present' : dept.to_date}
+                        </div>
                     ))}
                 </ul>
             ) : (
@@ -53,7 +54,7 @@ export default function EmployeeInfo() {
                 <ul className="list-disc list-inside mb-4">
                     {employeeData.salaryHistory.map((salary, index) => (
                         <li key={index}>
-                            Salary: {salary.salary}, From: {salary.from_date}, To: {salary.to_date}
+                            Salary: {salary.salary}, From: {salary.from_date} - {salary.to_date === '9999-01-01' ? 'Present' : salary.to_date}
                         </li>
                     ))}
                 </ul>
@@ -65,7 +66,7 @@ export default function EmployeeInfo() {
                 <ul className="list-disc list-inside mb-4">
                     {employeeData.titleHistory.map((title, index) => (
                         <li key={index}>
-                            Title: {title.title}, From: {title.from_date}, To: {title.to_date}
+                            Title: {title.title}, From: {title.from_date} - {title.to_date === '9999-01-01' ? 'Present' : title.to_date}
                         </li>
                     ))}
                 </ul>
