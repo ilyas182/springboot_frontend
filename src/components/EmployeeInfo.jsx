@@ -30,8 +30,49 @@ export default function EmployeeInfo() {
     return (
         <div className="p-8">
             <h2 className="text-2xl font-bold mb-4">Employee Information</h2>
-            {employeeData && <p>Displaying information for Employee ID: {JSON.stringify(employeeData)}</p>}
             {error && <p className="text-red-500">Error: Employee with ID {employeeId} not found.</p>}
+            {employeeData && <p>Displaying information for Employee ID: {employeeData.emp_no}</p>}
+            <p>Name: {employeeData?.first_name} {employeeData?.last_name}</p>
+            <p>Gender: {employeeData?.gender}</p>
+            <p>Birth Date: {employeeData?.birth_date}</p>
+            <p>Hire Date: {employeeData?.hire_date}</p>
+            <p className="font-semibold">Department History:</p>
+            {employeeData && employeeData.departmentHistory.length > 0 ? (
+                <ul className="list-disc list-inside mb-4">
+                    {employeeData.departmentHistory.map((dept, index) => (
+                        <li key={index}>
+                            Dept No: {dept.dept_no}, From: {dept.from_date}, To: {dept.to_date}
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>No department history available.</p>
+            )}
+            <p className="font-semibold">Salary History:</p>
+            {employeeData && employeeData.salaryHistory.length > 0 ? (
+                <ul className="list-disc list-inside mb-4">
+                    {employeeData.salaryHistory.map((salary, index) => (
+                        <li key={index}>
+                            Salary: {salary.salary}, From: {salary.from_date}, To: {salary.to_date}
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>No salary history available.</p>
+            )}
+            <p className="font-semibold">Title History:</p>
+            {employeeData && employeeData.titleHistory.length > 0 ? (
+                <ul className="list-disc list-inside mb-4">
+                    {employeeData.titleHistory.map((title, index) => (
+                        <li key={index}>
+                            Title: {title.title}, From: {title.from_date}, To: {title.to_date}
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>No salary history available.</p>
+            )}
+            
         </div>
     )
 }
