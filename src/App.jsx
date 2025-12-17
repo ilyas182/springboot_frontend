@@ -5,12 +5,15 @@ import About from './pages/About.jsx'
 import NoMatch from './pages/NoMatch.jsx'
 import Departments from './pages/Departments.jsx'
 import DepartmentInfo from './components/DepartmentInfo.jsx'
+import PromoteEmployee from './pages/PromoteEmployee.jsx'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
 
 
   return (
     <>
+      <Toaster position="bottom-center" />
       <Navbar />
 
       <Routes>
@@ -20,6 +23,7 @@ function App() {
         <Route path="*" element={<NoMatch />} />
         <Route path="/departments" element={<Departments />} />
         <Route path="/departments/:departmentId" element={<DepartmentInfo />} />
+        <Route path="/promote" element={<PromoteEmployee />} />
       </Routes>
     </>
   )

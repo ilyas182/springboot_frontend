@@ -6,7 +6,10 @@ export default function Departments() {
 
     const [departments, setDepartments] = useState([]);
 
-    const fetchDepartments =  async () => {
+    
+
+    useEffect(() => {
+        const fetchDepartments =  async () => {
         try {
             const response = await axios.get('http://localhost:9090/departments/all');
             const departments = response.data.sort((a, b) => a.dept_no.localeCompare(b.dept_no));
@@ -15,8 +18,6 @@ export default function Departments() {
             console.error('Error fetching Departments:', error);
         }
     };
-
-    useEffect(() => {
         fetchDepartments();
     }, []);
 
