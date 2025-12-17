@@ -23,14 +23,27 @@ export default function Home() {
     const idToDisplay = urlEmployeeId;
     return (
         <div>
-            <h2 className="text-2xl font-bold mb-4">Welcome to the Employee Management System</h2>
-            <label>Enter employee ID to view details:</label>
-            <input 
-            type="text" 
-            className="border border-gray-300 rounded px-2 py-1 ml-2" 
-            value = {employeeId}
-            onChange={(e) => setEmployeeId(e.target.value)} />
-            <button className="bg-blue-500 text-white px-4 py-2 rounded ml-2 hover:bg-blue-600" onClick={onHandleSubmit}>View Employee</button>
+            <section className="text-center py-10">
+            <h2 className="text-4xl font-black text-gray-900 mb-4">Employee Management</h2>
+            <p className="text-gray-500 max-w-2xl mx-auto">Quickly access employee records, department structures, and administrative data.</p>
+            </section>
+            <div className="max-w-md mx-auto">
+            <div className="flex shadow-sm rounded-lg overflow-hidden border border-gray-300 focus-within:ring-2 focus-within:ring-blue-500">
+                <input 
+                    type="text" 
+                    placeholder="Enter Employee ID..."
+                    className="flex-1 px-4 py-3 outline-none" 
+                    value={employeeId}
+                    onChange={(e) => setEmployeeId(e.target.value)} 
+                />
+                <button 
+                    className="bg-blue-600 text-white px-6 py-3 font-bold hover:bg-blue-700 transition-colors"
+                    onClick={onHandleSubmit}
+                >
+                    Search
+                </button>
+            </div>
+        </div>
             {idToDisplay && (
                 <div>
                     <EmployeeInfo employeeId={employeeId} />

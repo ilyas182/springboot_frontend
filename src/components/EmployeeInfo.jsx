@@ -29,7 +29,11 @@ export default function EmployeeInfo() {
 
     return (
         <div className="p-8">
-            <h2 className="text-2xl font-bold mb-4">Employee Information</h2>
+            <div className="mt-8 bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+        <div className="bg-blue-600 px-6 py-3">
+            <h2 className="text-white font-semibold">Employee Details</h2>
+        </div>
+        
             {error && <p className="text-red-500">Error: Employee with ID {employeeId} not found.</p>}
             {employeeData && <p>Displaying information for Employee ID: {employeeData.emp_no}</p>}
             <p>Name: {employeeData?.first_name} {employeeData?.last_name}</p>
@@ -73,7 +77,20 @@ export default function EmployeeInfo() {
             ) : (
                 <p>No salary history available.</p>
             )}
+            <p className="font-semibold">Management:</p>
+            {employeeData && employeeData.departmentManagerHistory.length > 0 ? (
+                <ul className="list-disc list-inside mb-4">
+                    {employeeData.departmentManagerHistory.map((manager, index) => (
+                        <li key={index}>
+                            Department: {manager.dept_name}, From: {manager.fromDate} - {manager.toDate === '9999-01-01' ? 'Present' : manager.to_date}
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>No management history available.</p>
+            )}
             
+        </div>
         </div>
     )
 }

@@ -13,9 +13,10 @@ function App() {
 
   return (
     <>
+    <div className="min-h-screen bg-gray-50">
       <Toaster position="bottom-center" />
       <Navbar />
-
+      <main className='max-w-6xl mx-auto p-6'>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/employee/:employeeId" element={<Home />} />
@@ -25,6 +26,8 @@ function App() {
         <Route path="/departments/:departmentId" element={<DepartmentInfo />} />
         <Route path="/promote" element={<PromoteEmployee />} />
       </Routes>
+      </main>
+      </div>
     </>
   )
 }
