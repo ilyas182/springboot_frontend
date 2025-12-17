@@ -1,12 +1,53 @@
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 export default function PromotionDetails(props) {
 
+    const [departments, setDepartments] = useState([]);
     const [newSalary, setNewSalary] = useState();
     const [newTitle, setNewTitle] = useState();
     const [newDepartment, setNewDepartment] = useState();
     const [effectiveDate, setEffectiveDate] = useState();
 
+    useEffect(() => {
+        const getDepartments = async () => {
+        const response = await axios.get('http://localhost:9090/departments/all');
+        setDepartments(response.data);
+        console.log('Departments fetched:', response.data);
+        }
+        getDepartments();
+    }, [])
+
+    const handlePromoteButton = async () => {
+        try {
+            const response = await axios.post(`http://localhost:9090/employees/promote`, {
+                emp_no: props.employeeData.emp_no,
+                title: newTitle,
+                salary: newSalary,
+                deptNo: newDepartment,
+                start_date: effectiveDate
+            });
+            console.log('Promotion successful:', response.data);
+        }
+        catch (error) {
+            console.error('Error during promotion:', error);
+        }
+    }
+
+    const formatDate = (date) => {
+        const [year, month, day] = date.split('-');
+        return `${day}-${month}-${year}`;
+    }
+
+    const handleDateChange = (e) => {
+        const date = new Date(e.target.value);
+        if (date < new Date()) {
+            alert('Effective date cannot be in the past.');
+            return;
+        }
+        setEffectiveDate(formatDate(e.target.value));
+    }
+    
     return (
         <div className="p-8">
             <h2 className="text-2xl font-bold mb-4">Employee Details:</h2>
@@ -19,11 +60,23 @@ export default function PromotionDetails(props) {
             <label className="block mb-2 font-semibold">New Title:</label>
             <input type="text" placeholder="New Title" className="border p-2 mb-4" onChange={(e) => setNewTitle(e.target.value)} />
             <label className="block mb-2 font-semibold">New salary:</label>
-            <input type="number" placeholder="Salary Increase" className="border p-2 mb-4" onChange={(e) => setNewSalary(e.target.value)} />
-            <label className="block mb-2 font-semibold">New Department:</label>
-            <input type="text" placeholder="Department" className="border p-2 mb-4" onChange={(e) => setNewDepartment(e.target.value)}   />
+            <input type="number" placeholder="Salary" className="border p-2 mb-4" onChange={(e) => setNewSalary(e.target.value)} />
+            <label className="block mb-2 font-semibold">New Department ID:</label>
+            <select value={newDepartment} onChange={(e) => setNewDepartment(e.target.value)} className="border p-2 mb-4">
+                {departments.map((dept) => (
+                    <option key={dept.dept_no} value={dept.dept_no}>
+                        {dept.dept_name} ({dept.dept_no})
+                    </option>
+                ))}
+            </select>
             <label className="block mb-2 font-semibold">Effective Date:</label>
-            <input type="date" className="border p-2 mb-4" onChange={(e) => setEffectiveDate(e.target.value)} />
+            <input type="date" className="border p-2 mb-4" onChange={handleDateChange} />
+            <br></br>
+            <button 
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full" 
+            onClick={handlePromoteButton}>
+                Promote
+            </button>
 
         </div>
     )

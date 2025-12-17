@@ -37,7 +37,7 @@ export default function PromoteEmployee() {
             className="border p-2 mb-4" 
             placeholder="Employee ID"
             onChange={handleChange} />
-            <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" onClick={onHandleSubmit}>Search</button>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={onHandleSubmit}>Search</button>
             {validId && <PromotionDetails employeeData={employeeData} />}
         </div>
     )
