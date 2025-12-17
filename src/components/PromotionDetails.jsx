@@ -20,13 +20,15 @@ export default function PromotionDetails(props) {
 
     const handlePromoteButton = async () => {
         try {
-            const response = await axios.post(`http://localhost:9090/employees/promote`, {
+            const body = {
                 emp_no: props.employeeData.emp_no,
                 title: newTitle,
                 salary: newSalary,
                 deptNo: newDepartment,
                 start_date: effectiveDate
-            });
+            }
+            console.log('Promotion request body:', body);
+            const response = await axios.post(`http://localhost:9090/employees/promote`, body);
             console.log('Promotion successful:', response.data);
         }
         catch (error) {
