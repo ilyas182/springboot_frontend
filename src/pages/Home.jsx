@@ -8,8 +8,6 @@ export default function Home() {
     const [employeeId, setEmployeeId] = useState(urlEmployeeId || '');
 
     const navigate = useNavigate();
-    
-    
 
     function onHandleSubmit() {
         if (employeeId.trim() === '') {

@@ -1,4 +1,3 @@
-import toast from 'react-hot-toast';
 
 export default function PromotionModal({ employee, title, salary, department, effectiveDate, onClose, onPromote }) {
     return (
@@ -39,7 +38,7 @@ export default function PromotionModal({ employee, title, salary, department, ef
             {title && <p className="text-gray-500 mb-8">
                 New Title: <span className="font-semibold text-gray-800">{title}</span>
           </p>}
-            {salary && <p className="text-gray-500 mb-8">
+            {salary !== 0 && <p className="text-gray-500 mb-8">
                 New Salary: <span className="font-semibold text-gray-800">{salary}</span>
           </p>}
             {department && <p className="text-gray-500 mb-8">
@@ -53,7 +52,6 @@ export default function PromotionModal({ employee, title, salary, department, ef
               className="w-full rounded-xl bg-blue-600 px-6 py-3 font-bold text-white shadow-lg shadow-blue-200 hover:bg-blue-700 active:scale-95 transition-all"
               onClick={() => {
                 onPromote();
-                toast.success(`Promotion successful for employee ${employee.emp_no}!`);
                 onClose();
               }}
             >

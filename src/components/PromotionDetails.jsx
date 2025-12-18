@@ -7,7 +7,7 @@ import PromotionModal from "./PromotionModal";
 export default function PromotionDetails(props) {
 
     const [departments, setDepartments] = useState([]);
-    const [newSalary, setNewSalary] = useState(null);
+    const [newSalary, setNewSalary] = useState(0);
     const [newTitle, setNewTitle] = useState(null);
     const [newDepartment, setNewDepartment] = useState(null);
     const [effectiveDate, setEffectiveDate] = useState();
@@ -18,11 +18,11 @@ export default function PromotionDetails(props) {
     useEffect(() => {
         const getDepartments = async () => {
         const response = await axios.get('http://localhost:9090/departments/all');
-        setDepartments(response.data);
+        setDepartments(response.data.filter(dept => dept.dept_no != props.employeeData.departmentHistory.at(-1).dept_no));
         console.log('Departments fetched:', response.data);
         }
         getDepartments();
-    }, [])
+    }, [props.employeeData.departmentHistory])
 
     const handlePromoteButton = async () => {
         try {
