@@ -12,7 +12,7 @@ export default function PromoteEmployee() {
         setEmployeeId(e.target.value);
     }
     const onHandleSubmit = async () => {
-
+        // to handle valid employee ID input first before allowing user to promote employee
         if (!employeeId || employeeId.trim() === '') {
             toast.error("No employee ID input provided.");
             return;

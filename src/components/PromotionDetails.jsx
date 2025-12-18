@@ -43,7 +43,7 @@ export default function PromotionDetails(props) {
             console.error('Error during promotion:', error);
         }
     }
-
+    // format date from yyyy-mm-dd to dd-mm-yyyy for backend
     const formatDate = (date) => {
         const [year, month, day] = date.split('-');
         return `${day}-${month}-${year}`;
@@ -84,10 +84,12 @@ export default function PromotionDetails(props) {
             <input type="date" className="border p-2 mb-4" onChange={handleDateChange} />
             <br></br>
             <button 
+            //only if effective date is set and at least one of new title, salary, or department is set, enable button
             className={`bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full ${effectiveDate && (newTitle || newSalary || newDepartment) ? '' : 'opacity-50 cursor-not-allowed'}`} 
             onClick={() => { setPromotionModal(true) }}>
                 Promote
             </button>
+            {/* add promotion confirmation modal to confirm promotion */}
             {promotionModal && 
             <PromotionModal 
                 employee={props.employeeData}

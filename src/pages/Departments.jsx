@@ -7,7 +7,7 @@ export default function Departments() {
     const [departments, setDepartments] = useState([]);
 
     
-
+    // page to fetch and display all departments
     useEffect(() => {
         const fetchDepartments =  async () => {
         try {

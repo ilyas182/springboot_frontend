@@ -5,7 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 export default function Home() {
     const { employeeId: urlEmployeeId } = useParams();
-    const [employeeId, setEmployeeId] = useState(urlEmployeeId || '');
+    // if no employeeId in URL param, start with empty string and wait for user input
+    const [employeeId, setEmployeeId] = useState(urlEmployeeId || ''); 
 
     const navigate = useNavigate();
 
@@ -15,7 +16,8 @@ export default function Home() {
             return;
         }
         console.log("Employee ID submitted:", employeeId);
-        navigate(`/employee/${employeeId}`);
+        // once user inputs ID, navigate to that URL and display EmployeeInfo component
+        navigate(`/employee/${employeeId}`); 
     }
 
     const idToDisplay = urlEmployeeId;

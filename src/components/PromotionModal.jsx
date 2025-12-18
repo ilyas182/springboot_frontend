@@ -2,16 +2,8 @@
 export default function PromotionModal({ employee, title, salary, department, effectiveDate, onClose, onPromote }) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Backdrop with blur */}
-      <div 
-        className="fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity" 
-        onClick={onClose}
-      />
-
-      {/* Modal Container */}
+      <div className="fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity" onClick={onClose}/>
       <div className="relative w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-8 shadow-2xl transition-all">
-        
-        {/* Close Button */}
         <button 
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
@@ -21,7 +13,6 @@ export default function PromotionModal({ employee, title, salary, department, ef
           </svg>
         </button>
 
-        {/* Content */}
         <div className="text-center">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 mb-6">
             <svg className="h-10 w-10 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">

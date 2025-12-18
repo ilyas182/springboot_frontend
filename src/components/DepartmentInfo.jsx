@@ -9,6 +9,7 @@ export default function DepartmentInfo() {
     const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
     const [departmentData, setDepartmentData] = useState(null);
 
+    // page to fetch and display department info with pagination
     useEffect(() => {
         const fetchDepartmentInfo = async () => {
             const response = await axios.get(`http://localhost:9090/employees/dept/${departmentId}?page=${page}`);
