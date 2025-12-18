@@ -72,8 +72,8 @@ export default function PromotionDetails(props) {
             <label className="block mb-2 font-semibold">New salary:</label>
             <input type="number" placeholder="Salary" className="border p-2 mb-4" onChange={(e) => setNewSalary(e.target.value)} />
             <label className="block mb-2 font-semibold">New Department ID:</label>
-            <select value={newDepartment} onChange={(e) => setNewDepartment(e.target.value)} className="border p-2 mb-4">
-                <option value={null}>Select Department</option>
+            <select value={newDepartment} onChange={(e) => {setNewDepartment(e.target.value); console.log(newDepartment)}} className="border p-2 mb-4">
+                <option value=''>Select Department</option>
                 {departments.map((dept) => (
                     <option key={dept.dept_no} value={dept.dept_no}>
                         {dept.dept_name} ({dept.dept_no})
@@ -84,7 +84,7 @@ export default function PromotionDetails(props) {
             <input type="date" className="border p-2 mb-4" onChange={handleDateChange} />
             <br></br>
             <button 
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full" 
+            className={`bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full ${effectiveDate && (newTitle || newSalary || newDepartment) ? '' : 'opacity-50 cursor-not-allowed'}`} 
             onClick={() => { setPromotionModal(true) }}>
                 Promote
             </button>

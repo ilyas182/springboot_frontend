@@ -1,4 +1,4 @@
-
+import toast from 'react-hot-toast';
 
 export default function PromotionModal({ employee, title, salary, department, effectiveDate, onClose, onPromote }) {
     return (
@@ -34,15 +34,26 @@ export default function PromotionModal({ employee, title, salary, department, ef
             Confirm Promotion
           </h3>
           <p className="text-gray-500 mb-8">
-            Are you sure you want to promote <span className="font-bold text-gray-800">{employee.first_name} {employee.last_name}</span>? This will update their title and salary grade.
+            Are you sure you want to promote <span className="font-bold text-gray-800">{employee.first_name} {employee.last_name}</span>? This will update the following grade.
           </p>
-
+            {title && <p className="text-gray-500 mb-8">
+                New Title: <span className="font-semibold text-gray-800">{title}</span>
+          </p>}
+            {salary && <p className="text-gray-500 mb-8">
+                New Salary: <span className="font-semibold text-gray-800">{salary}</span>
+          </p>}
+            {department && <p className="text-gray-500 mb-8">
+                New Department: <span className="font-semibold text-gray-800">{department}</span>
+          </p>}
+            {effectiveDate && <p className="text-gray-500 mb-8">
+                Effective Date: <span className="font-semibold text-gray-800">{effectiveDate}</span>
+          </p>}
           <div className="flex flex-col gap-3">
             <button 
               className="w-full rounded-xl bg-blue-600 px-6 py-3 font-bold text-white shadow-lg shadow-blue-200 hover:bg-blue-700 active:scale-95 transition-all"
               onClick={() => {
-                console.log("Promoted!");
                 onPromote();
+                toast.success(`Promotion successful for employee ${employee.emp_no}!`);
                 onClose();
               }}
             >
