@@ -1,13 +1,19 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import PromotionModal from "./PromotionModal";
 
 export default function PromotionDetails(props) {
 
     const [departments, setDepartments] = useState([]);
-    const [newSalary, setNewSalary] = useState();
-    const [newTitle, setNewTitle] = useState();
-    const [newDepartment, setNewDepartment] = useState();
+    const [newSalary, setNewSalary] = useState(null);
+    const [newTitle, setNewTitle] = useState(null);
+    const [newDepartment, setNewDepartment] = useState(null);
     const [effectiveDate, setEffectiveDate] = useState();
+    const [promotionModal, setPromotionModal] = useState(false);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getDepartments = async () => {
@@ -30,6 +36,8 @@ export default function PromotionDetails(props) {
             console.log('Promotion request body:', body);
             const response = await axios.post(`http://localhost:9090/employees/promote`, body);
             console.log('Promotion successful:', response.data);
+            toast.success(`Employee ${props.employeeData.emp_no} promoted successfully!`);
+            navigate('/employee/' + props.employeeData.emp_no);
         }
         catch (error) {
             console.error('Error during promotion:', error);
@@ -65,6 +73,7 @@ export default function PromotionDetails(props) {
             <input type="number" placeholder="Salary" className="border p-2 mb-4" onChange={(e) => setNewSalary(e.target.value)} />
             <label className="block mb-2 font-semibold">New Department ID:</label>
             <select value={newDepartment} onChange={(e) => setNewDepartment(e.target.value)} className="border p-2 mb-4">
+                <option value={null}>Select Department</option>
                 {departments.map((dept) => (
                     <option key={dept.dept_no} value={dept.dept_no}>
                         {dept.dept_name} ({dept.dept_no})
@@ -76,9 +85,18 @@ export default function PromotionDetails(props) {
             <br></br>
             <button 
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full" 
-            onClick={handlePromoteButton}>
+            onClick={() => { setPromotionModal(true) }}>
                 Promote
             </button>
+            {promotionModal && 
+            <PromotionModal 
+                employee={props.employeeData}
+                title={newTitle}
+                salary={newSalary}
+                department={newDepartment}
+                effectiveDate={effectiveDate}
+                onClose={() => setPromotionModal(false)} 
+                onPromote={handlePromoteButton} />}
 
         </div>
     )
